@@ -1,8 +1,12 @@
 public class Main {
 
     Main(){
-        View gameView = new View();
         Model gameModel = new Model();
+        View gameView = new View();
+
+        gameView.setModel(gameModel);
+        gameModel.setView(gameView);
+
         gameView.DisplayWelcomeScreen();
 
 

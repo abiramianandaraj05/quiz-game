@@ -2,14 +2,20 @@ import javax.swing.*;
 import java.awt.*;
 
 public class View {
-    JFrame welcomeFrame = new JFrame();
+    JFrame gameFrame = new JFrame();
+    Model gameModel;
+    JPanel gamePanel = new JPanel();
 
+
+    public void setModel(Model model){
+        gameModel = model;
+    }
     public void DisplayWelcomeScreen(){
-        welcomeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        welcomeFrame.setLocationRelativeTo(null);
-        welcomeFrame.setSize(new Dimension(400,600));
-        welcomeFrame.setTitle("The History Quiz!!");
-        welcomeFrame.setResizable(false);
+        gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gameFrame.setLocationRelativeTo(null);
+        gameFrame.setSize(new Dimension(400,600));
+        gameFrame.setTitle("The History Quiz!!");
+        gameFrame.setResizable(false);
 
         // create the welcome panel
         JPanel welcomePanel = new JPanel();
@@ -51,30 +57,66 @@ public class View {
         ButtonPanel.add(multichoiceButton);
         multichoiceButton.addActionListener(e ->{
             clearScreen();
+            gameModel.multiple();
         } );
         JButton shortAnswerButton = new JButton();
         shortAnswerButton.setText("Short Answer qs");
         ButtonPanel.add(shortAnswerButton);
+        shortAnswerButton.addActionListener(e -> {
+            clearScreen();
+            gameModel.shortAnswer();
+        });
 
         JButton matchEndingButton = new JButton();
         matchEndingButton.setText("Match statement endings qs");
         ButtonPanel.add(matchEndingButton);
+        matchEndingButton.addActionListener(e -> {
+            clearScreen();
+            gameModel.statementEnding();
+        });
 
         JButton trueFalseButton = new JButton();
         trueFalseButton.setText("True or False qs");
         ButtonPanel.add(trueFalseButton);
+        trueFalseButton.addActionListener(e -> {
+            clearScreen();
+            gameModel.trueFalse();
+        });
 
         welcomePanel.add(ButtonPanel);
 
         // add panel to the frame
-        welcomeFrame.getContentPane().add(welcomePanel);
+        gameFrame.getContentPane().add(welcomePanel);
 
-        welcomeFrame.setVisible(true);
+        gameFrame.setVisible(true);
     }
 
     public void clearScreen(){
-        welcomeFrame.getContentPane().removeAll();
-        welcomeFrame.repaint();
+        gameFrame.getContentPane().removeAll();
+        gameFrame.repaint();
 
     }
+
+    public void setGameUp(String text){
+        JPanel qsStyleName = new JPanel();
+        gamePanel.setLayout(new BorderLayout());
+        JLabel heading = new JLabel(text);
+        heading.setFont(new Font("Verdana", Font.BOLD, 40));
+        qsStyleName.add(heading);
+        gamePanel.add(qsStyleName, BorderLayout.NORTH);
+        gamePanel.setBackground(Color.CYAN);
+        gameFrame.getContentPane().add(gamePanel);
+
+        gameFrame.setVisible(true);
+    }
+
+    public void displayQs(String text){
+        System.out.println(text);
+        JPanel questionPanel = new JPanel();
+        JLabel question = new JLabel(text);
+        question.setFont(new Font("Verdana", Font.BOLD, 40));
+        questionPanel.add(question,BorderLayout.CENTER);
+        gamePanel.add(questionPanel);
+    }
+
 }
