@@ -1,0 +1,10 @@
+True or False: The great fire of London in 1666 started in a bakery on Pudding Lane,True
+True or False: Queen Victoria was the first queen of England,False
+True or False: The Berlin wall was built in 1961,False
+True or False: Cleopatra married her younger brothers,True
+True or False: We landed on the moon on the 16th July 1969,True
+True or False: Richard the Lionheart only spent 6 months of his reign in England,True
+True or False: Anne Boleyn was beheaded for flirting with another man,True
+True or False: Queen Elizabeth 1 had 3 children,False
+True or False: WW2 ended in 1944,False
+True or False: Winston Churchill was the UK's longest serving prime minister,False
