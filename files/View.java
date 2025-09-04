@@ -49,7 +49,9 @@ public class View {
         JButton multichoiceButton = new JButton();
         multichoiceButton.setText("Multiple choice qs");
         ButtonPanel.add(multichoiceButton);
-
+        multichoiceButton.addActionListener(e ->{
+            clearScreen();
+        } );
         JButton shortAnswerButton = new JButton();
         shortAnswerButton.setText("Short Answer qs");
         ButtonPanel.add(shortAnswerButton);
@@ -68,5 +70,11 @@ public class View {
         welcomeFrame.getContentPane().add(welcomePanel);
 
         welcomeFrame.setVisible(true);
+    }
+
+    public void clearScreen(){
+        welcomeFrame.getContentPane().removeAll();
+        welcomeFrame.repaint();
+
     }
 }
