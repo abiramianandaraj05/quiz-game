@@ -7,6 +7,13 @@ public interface QuestionStyle {
     List <Integer> nums = new ArrayList<>();
     public String getType();
     public String getQuestion(int index);
+    public int getGridRow();
+    public int getGridCol();
+    public void displayQuestion(View gameView);
+    public void displayFirstQ(View gameView);
+    public default int getSize(){
+        return nums.size();
+    }
     public default void getRandomNumbers(){
         for(int i= 0;i<5;i++) {
             int randomNum = getUniqueNumber();

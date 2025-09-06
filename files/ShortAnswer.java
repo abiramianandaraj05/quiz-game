@@ -1,10 +1,10 @@
-public class ShortAnswer implements QuestionStyle{
-    @Override
+public class ShortAnswer{
+
     public String getType() {
         return "Short Answer qs";
     }
 
-    @Override
+
     public String getQuestion(int index) {
         return "";
     }

@@ -5,7 +5,8 @@ public class View {
     JFrame gameFrame = new JFrame();
     Model gameModel;
     JPanel gamePanel = new JPanel();
-
+    JPanel buttonPanel = new JPanel();
+    JPanel questionPanel = new JPanel();
 
     public void setModel(Model model){
         gameModel = model;
@@ -15,7 +16,7 @@ public class View {
         gameFrame.setLocationRelativeTo(null);
         gameFrame.setSize(new Dimension(400,600));
         gameFrame.setTitle("The History Quiz!!");
-        gameFrame.setResizable(false);
+        //gameFrame.setResizable(false);
 
         // create the welcome panel
         JPanel welcomePanel = new JPanel();
@@ -99,24 +100,41 @@ public class View {
 
     public void setGameUp(String text){
         JPanel qsStyleName = new JPanel();
-        gamePanel.setLayout(new BorderLayout());
+        gamePanel.setLayout(new FlowLayout());
         JLabel heading = new JLabel(text);
         heading.setFont(new Font("Verdana", Font.BOLD, 40));
         qsStyleName.add(heading);
         gamePanel.add(qsStyleName, BorderLayout.NORTH);
+        gamePanel.add(questionPanel,BorderLayout.NORTH);
         gamePanel.setBackground(Color.CYAN);
         gameFrame.getContentPane().add(gamePanel);
-
         gameFrame.setVisible(true);
     }
 
     public void displayQs(String text){
-        System.out.println(text);
-        JPanel questionPanel = new JPanel();
         JLabel question = new JLabel(text);
-        question.setFont(new Font("Verdana", Font.BOLD, 40));
-        questionPanel.add(question,BorderLayout.CENTER);
-        gamePanel.add(questionPanel);
+        question.setFont(new Font("Verdana", Font.BOLD, 30));
+        questionPanel.add(question);
+        gamePanel.revalidate();
+        gamePanel.repaint();
+    }
+
+    public void addGrid(int row, int col){
+        buttonPanel.setLayout(new GridLayout(row,col));
+        gamePanel.add(buttonPanel,BorderLayout.SOUTH);
+        gamePanel.revalidate();
+        gamePanel.repaint();
+    }
+
+    public void addButton(String text){
+        JButton button = new JButton();
+        button.setText(text);
+        buttonPanel.add(button);
+        buttonPanel.revalidate();
+        buttonPanel.repaint();
+        gamePanel.revalidate();
+        gamePanel.repaint();
+
     }
 
 }

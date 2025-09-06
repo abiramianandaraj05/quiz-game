@@ -10,7 +10,7 @@ public class Model {
         factory = new QuestionFactory();
     }
     public void multiple(){
-        setQuestionStyle(factory.createMultiChoice());
+        //setQuestionStyle(factory.createMultiChoice());
         setUpQuiz();
     }
 
@@ -20,12 +20,12 @@ public class Model {
     }
 
     public void statementEnding(){
-        setQuestionStyle(factory.createStatementEnding());
+        //setQuestionStyle(factory.createStatementEnding());
         setUpQuiz();
     }
 
     public void shortAnswer(){
-        setQuestionStyle(factory.createShortAnswer());
+        //setQuestionStyle(factory.createShortAnswer());
         setUpQuiz();
     }
 
@@ -37,13 +37,11 @@ public class Model {
         gameChoice= userChoice;
     }
 
-    public void DisplayFirst(){
-        String text =gameChoice.getQuestion(0);
-        gameView.displayQs(text);
-    }
+
 
     public void setUpQuiz(){
         gameView.setGameUp(gameChoice.getType());
-        DisplayFirst();
+        gameView.addGrid(gameChoice.getGridRow(), gameChoice.getGridCol());
+        gameChoice.displayFirstQ(gameView);
     }
 }
