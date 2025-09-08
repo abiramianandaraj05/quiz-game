@@ -1,12 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class View {
     JFrame gameFrame = new JFrame();
     Model gameModel;
     JPanel gamePanel = new JPanel();
-    JPanel buttonPanel = new JPanel();
-    JPanel questionPanel = new JPanel();
+    //JPanel buttonPanel = new JPanel();
+    JPanel displayPanel = new JPanel();
+    List<ButtonGroup> buttonGroups = new ArrayList<>();
 
     public void setModel(Model model){
         gameModel = model;
@@ -98,40 +101,68 @@ public class View {
 
     }
 
+
     public void setGameUp(String text){
         JPanel qsStyleName = new JPanel();
-        gamePanel.setLayout(new FlowLayout());
+        gamePanel.setLayout(new BorderLayout());
+
         JLabel heading = new JLabel(text);
         heading.setFont(new Font("Verdana", Font.BOLD, 40));
         qsStyleName.add(heading);
         gamePanel.add(qsStyleName, BorderLayout.NORTH);
-        gamePanel.add(questionPanel,BorderLayout.NORTH);
+        gamePanel.add(displayPanel,BorderLayout.CENTER);
+        displayPanel.setLayout(new BoxLayout(displayPanel,BoxLayout.Y_AXIS));
         gamePanel.setBackground(Color.CYAN);
         gameFrame.getContentPane().add(gamePanel);
         gameFrame.setVisible(true);
     }
 
-    public void displayQs(String text){
-        JLabel question = new JLabel(text);
-        question.setFont(new Font("Verdana", Font.BOLD, 30));
+    public JPanel createNewQuestionPanel(){
+        JPanel questionPanel = new JPanel();
+        JLabel question = new JLabel("text");
         questionPanel.add(question);
         gamePanel.revalidate();
         gamePanel.repaint();
+        return questionPanel;
     }
 
-    public void addGrid(int row, int col){
-        buttonPanel.setLayout(new GridLayout(row,col));
-        gamePanel.add(buttonPanel,BorderLayout.SOUTH);
+    public void displayQs(String text, JPanel questionPanel){
+        JLabel question = new JLabel(text);
+        question.setFont(new Font("Verdana", Font.BOLD, 25));
+        displayPanel.add(question);
         gamePanel.revalidate();
         gamePanel.repaint();
     }
 
-    public void addButton(String text){
-        JButton button = new JButton();
+    public JPanel addGrid(int row, int col){
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(row,col));
+        displayPanel.add(buttonPanel);
+        gamePanel.revalidate();
+        gamePanel.repaint();
+        return buttonPanel;
+    }
+
+    public ButtonGroup createButtonGroup(){
+        ButtonGroup group = new ButtonGroup();
+        buttonGroups.add(group);
+        return group;
+    }
+
+    public void addButton(String text, ButtonGroup group, JPanel buttonPanel){
+        JRadioButton button = new JRadioButton();
         button.setText(text);
+        group.add(button);
         buttonPanel.add(button);
-        buttonPanel.revalidate();
-        buttonPanel.repaint();
+        displayPanel.add(buttonPanel);
+        gamePanel.revalidate();
+        gamePanel.repaint();
+
+    }
+    public  void submitButton(){
+        JButton submit = new JButton();
+        submit.setText("Submit");
+        displayPanel.add(submit);
         gamePanel.revalidate();
         gamePanel.repaint();
 

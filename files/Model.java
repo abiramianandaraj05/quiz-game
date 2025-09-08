@@ -37,11 +37,16 @@ public class Model {
         gameChoice= userChoice;
     }
 
-
-
     public void setUpQuiz(){
         gameView.setGameUp(gameChoice.getType());
         gameView.addGrid(gameChoice.getGridRow(), gameChoice.getGridCol());
-        gameChoice.displayFirstQ(gameView);
+        gameChoice.displayQuestion(gameView,0);
+    }
+
+    public void nextQs(){
+        index ++;
+    }
+    public void prevQs(){
+        index --;
     }
 }

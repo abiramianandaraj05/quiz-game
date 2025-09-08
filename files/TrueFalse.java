@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -33,22 +34,30 @@ public class TrueFalse implements QuestionStyle{
     }
 
     public int getGridRow(){
-        return 2;
-    }
-    public int getGridCol(){
         return 1;
     }
-
-    @Override
-    public void displayQuestion(View gameview) {
-
+    public int getGridCol(){
+        return 2;
     }
 
     @Override
-    public void displayFirstQ(View gameView) {
-        String text = getQuestion(0);
-        gameView.displayQs(text);
-        gameView.addButton("True");
-        gameView.addButton("False");
+    public void displayQuestion(View gameView, int index) {
+        int size = getSize();
+        String text;
+
+        for(int i = 0;i< size;i++)
+        {
+            text = getQuestion(i);
+            JPanel questionPanel = gameView.createNewQuestionPanel();
+            gameView.displayQs(text,questionPanel);
+            JPanel buttonPanel = gameView.addGrid(1,2);
+            ButtonGroup group = gameView.createButtonGroup();
+            gameView.addButton("True", group,buttonPanel);
+            gameView.addButton("False",group,buttonPanel);
+        }
+        gameView.submitButton();
+
     }
+
+
 }

@@ -9,8 +9,7 @@ public interface QuestionStyle {
     public String getQuestion(int index);
     public int getGridRow();
     public int getGridCol();
-    public void displayQuestion(View gameView);
-    public void displayFirstQ(View gameView);
+    public void displayQuestion(View gameView, int index);
     public default int getSize(){
         return nums.size();
     }
