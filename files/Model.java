@@ -1,10 +1,14 @@
+import java.util.List;
+import java.util.Objects;
+
 public class Model {
 
     QuestionStyle gameChoice;
     View gameView;
     QuestionFactory factory;
-    int index = 0;
     int score = 0;
+    List<String> userAnswer;
+    List<String> realAnswer;
 
     Model(){
         factory = new QuestionFactory();
@@ -16,11 +20,6 @@ public class Model {
 
     public void trueFalse(){
         setQuestionStyle(factory.createTrueFalse());
-        setUpQuiz();
-    }
-
-    public void statementEnding(){
-        //setQuestionStyle(factory.createStatementEnding());
         setUpQuiz();
     }
 
@@ -40,13 +39,27 @@ public class Model {
     public void setUpQuiz(){
         gameView.setGameUp(gameChoice.getType());
         gameView.addGrid(gameChoice.getGridRow(), gameChoice.getGridCol());
-        gameChoice.displayQuestion(gameView,0);
+        gameChoice.setAnswer();
+        gameChoice.displayQuestion(gameView);
+    }
+    public void setUserAnswers(List<String> answer ){
+        userAnswer = answer;
+    }
+    public void getRealAnswer(){
+        realAnswer = gameChoice.getAnswer();
+    }
+    public void validateAnswers(){
+        int size = gameChoice.getSize();
+        getRealAnswer();
+        for(int i = 0;i<size;i++){
+            if (Objects.equals(userAnswer.get(i), realAnswer.get(i))){
+                score ++;
+            }
+        }
     }
 
-    public void nextQs(){
-        index ++;
+    public int getScore(){
+        return score;
     }
-    public void prevQs(){
-        index --;
-    }
+
 }

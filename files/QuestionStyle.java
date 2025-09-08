@@ -2,14 +2,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface QuestionStyle {
-    List<String> questionList = new ArrayList<>();
     List<String> answerList = new ArrayList<>();
     List <Integer> nums = new ArrayList<>();
     public String getType();
     public String getQuestion(int index);
     public int getGridRow();
     public int getGridCol();
-    public void displayQuestion(View gameView, int index);
+    public void displayQuestion(View gameView);
+    public void setAnswer();
+    public default List<String> getAnswer(){
+        return answerList;
+    }
     public default int getSize(){
         return nums.size();
     }

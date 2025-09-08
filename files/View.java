@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class View {
     JFrame gameFrame = new JFrame();
@@ -55,7 +56,7 @@ public class View {
 
         // panel to add buttons
         JPanel ButtonPanel = new JPanel();
-        ButtonPanel.setLayout(new GridLayout(2,2));
+        ButtonPanel.setLayout(new GridLayout(3,1));
         JButton multichoiceButton = new JButton();
         multichoiceButton.setText("Multiple choice qs");
         ButtonPanel.add(multichoiceButton);
@@ -69,14 +70,6 @@ public class View {
         shortAnswerButton.addActionListener(e -> {
             clearScreen();
             gameModel.shortAnswer();
-        });
-
-        JButton matchEndingButton = new JButton();
-        matchEndingButton.setText("Match statement endings qs");
-        ButtonPanel.add(matchEndingButton);
-        matchEndingButton.addActionListener(e -> {
-            clearScreen();
-            gameModel.statementEnding();
         });
 
         JButton trueFalseButton = new JButton();
@@ -117,16 +110,7 @@ public class View {
         gameFrame.setVisible(true);
     }
 
-    public JPanel createNewQuestionPanel(){
-        JPanel questionPanel = new JPanel();
-        JLabel question = new JLabel("text");
-        questionPanel.add(question);
-        gamePanel.revalidate();
-        gamePanel.repaint();
-        return questionPanel;
-    }
-
-    public void displayQs(String text, JPanel questionPanel){
+    public void displayQs(String text){
         JLabel question = new JLabel(text);
         question.setFont(new Font("Verdana", Font.BOLD, 25));
         displayPanel.add(question);
@@ -152,6 +136,7 @@ public class View {
     public void addButton(String text, ButtonGroup group, JPanel buttonPanel){
         JRadioButton button = new JRadioButton();
         button.setText(text);
+        button.setActionCommand(text);
         group.add(button);
         buttonPanel.add(button);
         displayPanel.add(buttonPanel);
@@ -162,6 +147,16 @@ public class View {
     public  void submitButton(){
         JButton submit = new JButton();
         submit.setText("Submit");
+        submit.addActionListener(e -> {
+            List<String> answer = new ArrayList<>();
+            for(int i =0; i< buttonGroups.size();i++)
+            {
+                String choice = buttonGroups.get(i).getSelection().getActionCommand();
+                answer.add(choice);
+            }
+            gameModel.setUserAnswers(answer);
+            gameModel.validateAnswers();
+        });
         displayPanel.add(submit);
         gamePanel.revalidate();
         gamePanel.repaint();

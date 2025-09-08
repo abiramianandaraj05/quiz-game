@@ -2,8 +2,10 @@ import javax.swing.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class TrueFalse implements QuestionStyle{
+
 
     TrueFalse(){
         getRandomNumbers();
@@ -12,7 +14,6 @@ public class TrueFalse implements QuestionStyle{
         String[] question;
         String text = getLine(index);
         question = text.split("\\,");
-        System.out.println(question[0]);
         return question[0];
     }
 
@@ -41,23 +42,31 @@ public class TrueFalse implements QuestionStyle{
     }
 
     @Override
-    public void displayQuestion(View gameView, int index) {
+    public void displayQuestion(View gameView) {
         int size = getSize();
         String text;
 
         for(int i = 0;i< size;i++)
         {
-            text = getQuestion(i);
-            JPanel questionPanel = gameView.createNewQuestionPanel();
-            gameView.displayQs(text,questionPanel);
-            JPanel buttonPanel = gameView.addGrid(1,2);
+            text = getQuestion(nums.get(i));
+            gameView.displayQs(text);
+            JPanel buttonPanel = gameView.addGrid(getGridRow(),getGridCol());
             ButtonGroup group = gameView.createButtonGroup();
             gameView.addButton("True", group,buttonPanel);
             gameView.addButton("False",group,buttonPanel);
         }
         gameView.submitButton();
-
     }
 
+    @Override
+    public void setAnswer(){
+        for(int i=0;i<getSize();i++)
+        {
+            String[] answer;
+            String text = getLine(i);
+            answer = text.split("\\,");
+            answerList.add(answer[1]);
+        }
+    }
 
 }
