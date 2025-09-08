@@ -10,13 +10,8 @@ public class TrueFalse implements QuestionStyle{
     TrueFalse(){
         getRandomNumbers();
     }
-    public String getQuestion(int index){
-        String[] question;
-        String text = getLine(index);
-        question = text.split("\\,");
-        return question[0];
-    }
 
+    @Override
     public String getLine(int index){
         String text = "";
         try {
@@ -45,7 +40,6 @@ public class TrueFalse implements QuestionStyle{
     public void displayQuestion(View gameView) {
         int size = getSize();
         String text;
-
         for(int i = 0;i< size;i++)
         {
             text = getQuestion(nums.get(i));
@@ -63,7 +57,7 @@ public class TrueFalse implements QuestionStyle{
         for(int i=0;i<getSize();i++)
         {
             String[] answer;
-            String text = getLine(i);
+            String text = getLine(nums.get(i));
             answer = text.split("\\,");
             answerList.add(answer[1]);
         }

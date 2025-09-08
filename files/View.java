@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class View {
@@ -11,6 +12,7 @@ public class View {
     //JPanel buttonPanel = new JPanel();
     JPanel displayPanel = new JPanel();
     List<ButtonGroup> buttonGroups = new ArrayList<>();
+    List<JTextField> entryList = new ArrayList<>();
 
     public void setModel(Model model){
         gameModel = model;
@@ -144,11 +146,12 @@ public class View {
         gamePanel.repaint();
 
     }
+    List<String> answer = new ArrayList<>();
     public  void submitButton(){
         JButton submit = new JButton();
         submit.setText("Submit");
         submit.addActionListener(e -> {
-            List<String> answer = new ArrayList<>();
+
             for(int i =0; i< buttonGroups.size();i++)
             {
                 String choice = buttonGroups.get(i).getSelection().getActionCommand();
@@ -161,6 +164,38 @@ public class View {
         gamePanel.revalidate();
         gamePanel.repaint();
 
+    }
+    public void submitEntryButton(){
+        JButton submit = new JButton();
+        submit.setText("Submit");
+        submit.addActionListener(e -> {
+
+            for(int i =0; i< entryList.size();i++)
+            {
+                JTextField text = entryList.get(i);
+                if (Objects.equals(text.getText(), ""))
+                {
+                    System.out.println("nothing entered");
+                    break;
+                }
+                answer.add(text.getText());
+            }
+            gameModel.setUserAnswers(answer);
+            gameModel.validateAnswers();
+        });
+        displayPanel.add(submit);
+        gamePanel.revalidate();
+        gamePanel.repaint();
+
+    }
+    public void createEntry(){
+        JPanel panel = new JPanel(new FlowLayout());
+        JTextField userInput = new JTextField(20);
+        entryList.add(userInput);
+        panel.add(userInput);
+        displayPanel.add(panel);
+        gamePanel.revalidate();
+        gamePanel.repaint();
     }
 
 }

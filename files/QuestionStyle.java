@@ -5,11 +5,19 @@ public interface QuestionStyle {
     List<String> answerList = new ArrayList<>();
     List <Integer> nums = new ArrayList<>();
     public String getType();
-    public String getQuestion(int index);
+    public String getLine(int index);
     public int getGridRow();
     public int getGridCol();
     public void displayQuestion(View gameView);
     public void setAnswer();
+
+    public default String getQuestion(int index){
+        String[] question;
+        String text = getLine(index);
+        question = text.split("\\,");
+        return question[0];
+    }
+
     public default List<String> getAnswer(){
         return answerList;
     }

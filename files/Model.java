@@ -24,7 +24,7 @@ public class Model {
     }
 
     public void shortAnswer(){
-        //setQuestionStyle(factory.createShortAnswer());
+        setQuestionStyle(factory.createShortAnswer());
         setUpQuiz();
     }
 
@@ -38,7 +38,6 @@ public class Model {
 
     public void setUpQuiz(){
         gameView.setGameUp(gameChoice.getType());
-        gameView.addGrid(gameChoice.getGridRow(), gameChoice.getGridCol());
         gameChoice.setAnswer();
         gameChoice.displayQuestion(gameView);
     }
@@ -52,8 +51,12 @@ public class Model {
         int size = gameChoice.getSize();
         getRealAnswer();
         for(int i = 0;i<size;i++){
-            if (Objects.equals(userAnswer.get(i), realAnswer.get(i))){
+            if (userAnswer.get(i).equalsIgnoreCase(realAnswer.get(i))){
+                System.out.println("Q"+(i+1) + " is correct");
                 score ++;
+            }
+            else{
+                System.out.println("Q"+(i+1) + " is incorrect");
             }
         }
     }
