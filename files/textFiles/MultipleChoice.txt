@@ -1,0 +1,10 @@
+How many wives did Henry VIII have?,8,2,6,3,6
+Alcohol was banned in the US from which year?,1920,1945,2005,1913,1920
+What was the first name of the last tudor monarch?,Henry,Anne,Elizabeth,Mary,Elizabeth
+In which century was Queen Elizabeth II born?,18th,20th,19th,21st,20th
+What was the first name of Queen Victoria's husband?,Albert,Harry,George,Steven,Albert
+How many US vice presidents became president?,15,8,4,2,15
+Which king received an arrow in his eye at the Battle of Hastings?,William I,Harold I,Harold II,William II,Harold II
+Which country did Germany invade to kickstart World War II?,England,US,Italy,Poland,Poland
+In what year was the Magna Carta signed?,1234,1200,1205,1215,1215
+Which President of the United States abolished slavery?,Herbert Hoover,Theodore Roosevelt,Abraham Lincoln,John F. Kennedy,Abraham Lincoln

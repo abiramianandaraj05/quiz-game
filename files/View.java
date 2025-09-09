@@ -113,9 +113,12 @@ public class View {
     }
 
     public void displayQs(String text){
+        JPanel questionPanel = new JPanel();
         JLabel question = new JLabel(text);
         question.setFont(new Font("Verdana", Font.BOLD, 25));
-        displayPanel.add(question);
+        questionPanel.add(question);
+        questionPanel.setName("question");
+        displayPanel.add(questionPanel);
         gamePanel.revalidate();
         gamePanel.repaint();
     }
@@ -151,11 +154,17 @@ public class View {
         JButton submit = new JButton();
         submit.setText("Submit");
         submit.addActionListener(e -> {
-
+            removeErrorMessage();
             for(int i =0; i< buttonGroups.size();i++)
             {
-                String choice = buttonGroups.get(i).getSelection().getActionCommand();
-                answer.add(choice);
+                try {
+                    String choice = buttonGroups.get(i).getSelection().getActionCommand();
+                    answer.add(choice);
+                } catch (Exception error){
+                    System.out.println("nothing entered");
+                    displayError();
+                    return;
+                }
             }
             gameModel.setUserAnswers(answer);
             gameModel.validateAnswers();
@@ -165,7 +174,26 @@ public class View {
         gamePanel.repaint();
 
     }
+
+    JPanel errorPanel = new JPanel();
+    JLabel errorMessage = new JLabel();
+    public void displayError(){
+
+        errorMessage.setText("You have not completed the questions");
+        errorMessage.setFont(new Font("Verdana", Font.BOLD, 25));
+        errorPanel.add(errorMessage);
+        displayPanel.add(errorPanel);
+    }
+
+    public void removeErrorMessage(){
+        System.out.println("removed message");
+        errorMessage.setText("");
+        displayPanel.repaint();
+        displayPanel.revalidate();
+    }
+
     public void submitEntryButton(){
+        removeErrorMessage();
         JButton submit = new JButton();
         submit.setText("Submit");
         submit.addActionListener(e -> {
@@ -176,6 +204,7 @@ public class View {
                 if (Objects.equals(text.getText(), ""))
                 {
                     System.out.println("nothing entered");
+                    displayError();
                     break;
                 }
                 answer.add(text.getText());
@@ -188,6 +217,7 @@ public class View {
         gamePanel.repaint();
 
     }
+
     public void createEntry(){
         JPanel panel = new JPanel(new FlowLayout());
         JTextField userInput = new JTextField(20);
@@ -196,6 +226,31 @@ public class View {
         displayPanel.add(panel);
         gamePanel.revalidate();
         gamePanel.repaint();
+    }
+
+    public void colourQuestions(List <Boolean> correctAnswers ){
+        Component[] comp = displayPanel.getComponents();
+
+        int size = comp.length;
+        int index = 0;
+        for(int i=0;i<size;i++)
+        {
+            String name = comp[i].getName();
+            if(Objects.equals(name,"question"))
+            {
+                if(correctAnswers.get(index)) {
+                    comp[i].setBackground(Color.green);
+                }
+                else
+                {
+                    comp[i].setBackground(Color.red);
+                }
+                index ++;
+            }
+        }
+        displayPanel.repaint();
+        displayPanel.revalidate();
+
     }
 
 }

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,7 +15,7 @@ public class Model {
         factory = new QuestionFactory();
     }
     public void multiple(){
-        //setQuestionStyle(factory.createMultiChoice());
+        setQuestionStyle(factory.createMultiChoice());
         setUpQuiz();
     }
 
@@ -49,16 +50,20 @@ public class Model {
     }
     public void validateAnswers(){
         int size = gameChoice.getSize();
+        List <Boolean> correctAnswers = new ArrayList<>();
         getRealAnswer();
         for(int i = 0;i<size;i++){
             if (userAnswer.get(i).equalsIgnoreCase(realAnswer.get(i))){
+                correctAnswers.add(true);
                 System.out.println("Q"+(i+1) + " is correct");
                 score ++;
             }
             else{
+                correctAnswers.add(false);
                 System.out.println("Q"+(i+1) + " is incorrect");
             }
         }
+        gameView.colourQuestions(correctAnswers);
     }
 
     public int getScore(){
